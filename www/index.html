@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="js/ng-cordova.js"></script>
+
+    <!-- your app's js -->
+    <script src="js/app.js"></script>
+  </head>
+
+    <body ng-app="starter">
+
+      <ion-pane>
+        <ion-header-bar class="bar-stable">
+          <h1 class="title">Notes App</h1>
+        </ion-header-bar>
+
+        <ion-content ng-controller="NotesController">
+
+        <ion-list>
+          <h1>My Notes:</h1>
+          <ion-item ng-repeat="note in notes">
+
+          <span data-ng-if="!note.editing">
+            <h2>{{note.title}}</h2>
+            <p>{{note.noteBody}}</p>
+            <div class="button-bar">
+              <button ng-click="edit(note)" class="button icon button-icon ion-edit"></button>
+              <button ng-click="deleteNote($index)" class="button icon button-icon ion-trash-a"></button>
+            </div>
+          </span>
+
+          <form data-ng-if="note.editing">
+            <h3>Edit Details for {{noted.title}}</h3>
+            <label class="item item-input">Note Title:</label>
+            <input type="text" style=" font-size: 20px;" placeholder="Title" ng-model="noted.title">
+
+            <label class="item item-input">Note Body:</label>
+            <input type="text" style=" font-size: 20px;" placeholder="Body" ng-model="noted.noteBody">
+
+            <button class="button button-full button-calm" data-ng-click="updateNote(noted)">Submit Changes</button>
+
+            <button data-ng-click="noted.editing = false; cancelEdit(note)">Cancel Changes</button>
+          </form>
+
+          </ion-item>
+        </ion-list>
+
+        <form class="list" name="formSubmit" ng-submit="createNote(newNote)" novalidate="">
+          <h1>New Note:</h1>
+          <label class="item item-input">Note Title:</label>
+          <input type="text" placeholder="Title" ng-model="newNote.title" required>
+
+          <label class="item item-input">Note Body:</label>
+          <input type="text" placeholder="Body" ng-model="newNote.noteBody" required>
+
+          <button class="button button-full button-calm" ng-disabled="formSubmit.$invalid">Create New Note</button>
+        </form>
+
+        </ion-content>
+
+      </ion-pane>
+    </body>
+</html>
